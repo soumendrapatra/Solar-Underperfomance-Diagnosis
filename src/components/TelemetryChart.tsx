@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   ResponsiveContainer,
   ComposedChart,
@@ -16,14 +16,16 @@ interface TelemetryChartProps {
   data: DiagnosticEvent[];
 }
 
+interface CustomTooltipPayloadItem {
+  value: number;
+  name: string;
+  color: string;
+  dataKey: string;
+}
+
 interface CustomTooltipProps {
   active?: boolean;
-  payload?: Array<{
-    value: number;
-    name: string;
-    color: string;
-    dataKey: string;
-  }>;
+  payload?: CustomTooltipPayloadItem[];
   label?: string;
 }
 
@@ -80,7 +82,13 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
 };
 
 export default function TelemetryChart({ data }: TelemetryChartProps) {
-  const chartData = React.useMemo(() => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const chartData = useMemo(() => {
     return data.map((d) => ({
       timestamp: d.timestamp,
       timeFormatted: d.timestamp.includes("T")
@@ -92,6 +100,14 @@ export default function TelemetryChart({ data }: TelemetryChartProps) {
       rootCause: d.rootCause,
     }));
   }, [data]);
+
+  if (!isMounted) {
+    return (
+      <div className="w-full h-full min-h-[300px] flex items-center justify-center text-text-secondary font-mono text-xs">
+        INITIALIZING TELEMETRY STREAM...
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-full min-h-[300px] relative font-mono">
