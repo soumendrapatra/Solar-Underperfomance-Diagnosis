@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-main: #0a0a0a;
+  --surface-main: #111111;
+  --border-main: #222222;
+  --text-primary: #e5e5e5;
+  --text-secondary: #888888;
+  --color-active: #00ff41;
+  --color-warning: #ffb000;
+  --color-fault: #ff3333;
+  --color-expected: #555555;
+  --font-sans: 'Inter', Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Complete Reset of margins and paddings for dense industrial layout */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #0a0a0a;
+  color: #e5e5e5;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.35;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+/* Enforce Monospace font for numerical data, timestamps, IDs, code, and values */
+code,
+kbd,
+samp,
+pre,
+var,
+time,
+data,
+input[type="number"],
+.font-mono,
+.scada-mono,
+.scada-num,
+.scada-val,
+.scada-id,
+.scada-time,
+.scada-code,
+[data-type="number"],
+[data-type="timestamp"],
+[data-type="id"],
+[data-mono="true"] {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Industrial SCADA Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+  border: 1px solid #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border: 1px solid #333333;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
+}
